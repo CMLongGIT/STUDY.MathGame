@@ -1,16 +1,18 @@
-﻿namespace MathGame
+﻿using MathGame.Models;
+
+namespace MathGame
 {
     internal class Helpers
     {
-        static List<string> games = new();
-        internal static void GetGames()
+        static List<Game> games = new List<Game>();
+        internal static void PrintGames()
         {
             Console.Clear();
             Console.WriteLine("Games History");
             Console.WriteLine("----------------------------");
             foreach (var game in games)
             {
-                Console.WriteLine(game);
+                Console.WriteLine($"{game.Date} - {game.Type}: {game.Score}pts");
             }
             Console.WriteLine("----------------------------\n");
             Console.WriteLine("Press any key to return to the Main Menu");
@@ -38,9 +40,37 @@
             return result;
         }
 
-        internal static void AddToHistory(int gameScore, string gameType)
+        internal static void AddToHistory(int gameScore, GameType gameType)
         {
-            games.Add($"{DateTime.Now} - {gameType}: Score = {gameScore} pts");
+            games.Add(new Game
+            {
+                Date = DateTime.Now,
+                Score = gameScore,
+                Type = gameType
+            });
+        }
+
+        internal static string? ValidateResult(string result)
+        {
+            while (string.IsNullOrEmpty(result) || !Int32.TryParse(result, out _))
+            {
+                Console.WriteLine("Your answer needs to be an integer. Try Again.");
+                result = Console.ReadLine();
+            }
+            return result;
+        }
+
+        internal static string GetName()
+        {
+            Console.WriteLine("Please type your name.");
+            var name = Console.ReadLine();
+
+            while (string.IsNullOrEmpty(name))
+            {
+                Console.WriteLine("Name can't be empty.");
+                name = Console.ReadLine();
+            }
+            return name;
         }
     }
 }

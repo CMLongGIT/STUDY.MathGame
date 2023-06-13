@@ -6,8 +6,11 @@
 
         internal void ShowMenu(string name, DateTime date)
         {
-            Console.WriteLine("-----------------------------------------------");
+            Console.Clear();
             Console.WriteLine($"Hello {name}. It's {date}. This is a simple collection of C# math games to learn fundamentals. \n");
+            Console.WriteLine("Press any key to show menu.");
+            Console.ReadLine();
+            Console.WriteLine("\n");
 
             bool isGameOn = true;
 
@@ -29,7 +32,7 @@ Q - Quit the program");
                 switch (gameSelected.Trim().ToLower())
                 {
                     case "v":
-                        Helpers.GetGames();
+                        Helpers.PrintGames();
                         break;
                     case "a":
                         gameEngine.AdditionGame("Addition game selected.");
